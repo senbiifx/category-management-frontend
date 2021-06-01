@@ -1,0 +1,36 @@
+
+ <div class="general-toolbar">
+  <button mat-icon-button matTooltip="Add root category." matTooltipPosition="right" (click)="addRootDialog()">
+    <mat-icon>control_point</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Expand all." matTooltipPosition="right" (click)="expandAll()">
+    <mat-icon>unfold_more</mat-icon>
+  </button>
+  <button mat-icon-button matTooltip="Collapse all." matTooltipPosition="right"(click)="collapseAll()">
+    <mat-icon>unfold_less</mat-icon>
+  </button>
+</div>
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="category-tree">
+
+    <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+        <div class="mat-tree-node">
+          <button mat-icon-button matTreeNodeToggle>
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          {{node.name}}
+          <span class="node-toolbar">
+            <mat-icon class="toolbar-icon" (click)="addChildDialog(node)">add</mat-icon>
+            <mat-icon class="toolbar-icon" (click)="updateDialog(node)">edit</mat-icon>
+            <mat-icon class="toolbar-icon" (click)="deleteNode(node)">delete</mat-icon>
+          </span>
+        </div>
+
+        <!-- indentation  -->
+        <div [class.category-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+          <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+    </mat-nested-tree-node>
+</mat-tree>
