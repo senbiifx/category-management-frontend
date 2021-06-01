@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import { CategoryNode } from '../category-node';
@@ -13,7 +13,7 @@ import { CategoryDialogComponent } from '../category-dialog/category-dialog.comp
   templateUrl: './tree.component.html',
   styleUrls: ['./tree.component.css']
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent {
 
   treeControl = new NestedTreeControl<CategoryNode>(node => node.children)
   dataSource = new MatTreeNestedDataSource<CategoryNode>()
@@ -21,14 +21,13 @@ export class TreeComponent implements OnInit {
   constructor(private categoryService: CategoryService, public dialog: MatDialog) {
     categoryService
         .getCategories()
-        .subscribe(data => {
-          this.dataSource.data = data
-          this.treeControl.dataNodes = data
-        })
+        .subscribe(data => this.loadDataSource(data))
         this.treeControl.expandAll
    }
 
-  ngOnInit(): void {
+  loadDataSource(data: CategoryNode[]){
+    this.dataSource.data = data
+      this.treeControl.dataNodes = data
   }
 
   deleteNode(node: CategoryNode){
