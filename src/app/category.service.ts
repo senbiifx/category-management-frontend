@@ -7,47 +7,6 @@ import { Response } from './common/response';
 import { map, filter, tap } from 'rxjs/operators'
 import { VoidResponse } from './common/void-response';
 
-const TREE_DATA: CategoryNode[] = [
-  {
-    categoryId : 1,
-    name: 'Men',
-    parentId: null,
-    children: [
-      {
-        categoryId : 3,
-        name: 'Shirt',
-        parentId: 1,
-        children: []
-      },
-      {
-        categoryId : 4,
-        name: 'Pants',
-        parentId: 1,
-        children: []
-      },
-    ]
-  },
-  {
-    categoryId : 2,
-    name: 'Women',
-    parentId: null,
-    children: [
-      {
-        categoryId : 5,
-        name: 'Shirt',
-        parentId: 2,
-        children: []
-      },
-      {
-        categoryId : 6,
-        name: 'Pants',
-        parentId: 2,
-        children: []
-      }
-    ]
-  },
-];
-
 
 @Injectable({
   providedIn: 'root'
